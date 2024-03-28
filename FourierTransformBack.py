@@ -1,3 +1,6 @@
+import tkinter
+import customtkinter
+from tkinter import messagebox
 import cv2
 import matplotlib.pyplot as plt
 import numpy as np
@@ -17,7 +20,8 @@ def fourier_transform(selected_img):
         None. Both images are displayed in lieu of return. 
     """
     # Performing greyscale converison:
-    greyscaled_selected_img = cv2.cvtColor(selected_img, cv2.COLOR_BGR2GRAY)
+    img = cv2.imread(selected_img)
+    greyscaled_selected_img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     
     # Complete the Fourier Transform on the given image:
     fourier_transform = cv2.dft(np.float32(greyscaled_selected_img), flags=cv2.DFT_COMPLEX_OUTPUT)
@@ -38,7 +42,7 @@ def fourier_transform(selected_img):
     
     # Displaying original image in the left:
     fourier_figure.add_subplot(rows,column,1)
-    plt.imshow(cv2.cvtColor(selected_img,cv2.COLOR_BGR2RGB))
+    plt.imshow(cv2.cvtColor(img,cv2.COLOR_BGR2RGB))
     plt.title("Original Image")
     
     # Displaying edge detected image in the left:
@@ -49,6 +53,3 @@ def fourier_transform(selected_img):
     # Adjust layout for better visualization and show both images:
     plt.tight_layout()  
     plt.show()
-    
-selected_img = cv2.imread(r"D:\Screenshots\Screenshot 2024-03-27 151614.png")    
-fourier_transform(selected_img)
